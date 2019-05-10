@@ -5,17 +5,21 @@
  */
 package interfazsql;
 
+import SQLConnection.ConfigSQL;
+
 /**
  *
  * @author Catalin 'uNKoLL' Ciurcanu
  */
 public class Login extends javax.swing.JFrame {
-
+ConfigSQL conexion;
     /**
      * Creates new form Interfaz
      */
     public Login() {
         initComponents();
+        conexion = new ConfigSQL();
+        conexion.realizarConsulta("Select * FROM usuarios");
     }
 
     /**
@@ -40,6 +44,11 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
         btn_acceder.setText("ACCEDER");
+        btn_acceder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_accederMouseClicked(evt);
+            }
+        });
 
         btn_registro.setText("REGISTRO");
 
@@ -116,6 +125,10 @@ public class Login extends javax.swing.JFrame {
     private void jPasswordField_pwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField_pwdActionPerformed
         jPasswordField_pwd.setText("");
     }//GEN-LAST:event_jPasswordField_pwdActionPerformed
+
+    private void btn_accederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_accederMouseClicked
+        
+    }//GEN-LAST:event_btn_accederMouseClicked
 
     /**
      * @param args the command line arguments
