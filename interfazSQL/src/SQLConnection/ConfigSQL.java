@@ -5,11 +5,15 @@
  */
 package SQLConnection;
 
+import Personas.Usuario;
+import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +41,9 @@ public class ConfigSQL {
             // Establecemos la conexión con la base de datos. 
             conexion = (Connection) DriverManager.getConnection (host+db,username, password);
             if(!conexion.isClosed()){
-                System.out.println("Conexión abierta");
+                System.out.println("STEALING DAVLIN'S NUGGETS");
+                //http://www.ntu.edu.sg/home/ehchua/programming/java/jdbc_basic.html
+                
             }
         } catch (ClassNotFoundException ex) {
             //Logger.getLogger(ConfigSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,12 +54,32 @@ public class ConfigSQL {
         }
     }
     
+    public void iniciarSesion(String nombre, String password){
+        Usuario usu = null;
+        abrirConexion();
+        try {
+            Statement statement = (Statement) conexion.createStatement();
+            PreparedStatement pst = conexion.prepareStatement("Select * FROM usuarios WHERE usuario=? AND password=?");
+            pst.setString(1, nombre);
+            pst.setString(2, password);
+        } catch (SQLException ex) {
+            //Logger.getLogger(ConfigSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error realizando Consulta");
+        }
+        cerrarConexion();
+    }
+    
+    public void insertarUusario(Usuario user){
+        
+    }
+    
     public void realizarConsulta(String Consulta){
         abrirConexion();
         //MENUS - SELECCIONAR FICHEROS - PROYECTO
         try {
             Statement statement = (Statement) conexion.createStatement();
             ResultSet resultset = statement.executeQuery(Consulta);
+            /*
             while(resultset.next()){
                 System.out.println("** ID: "+resultset.getString(1));
                 System.out.println("** NOMBRE: "+resultset.getString(2));
@@ -64,6 +90,7 @@ public class ConfigSQL {
                 System.out.println("** BLOB: "+resultset.getString(7));
                 System.out.println("***************************************");
             }
+            */
         } catch (SQLException ex) {
             //Logger.getLogger(ConfigSQL.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error realizando Consulta");

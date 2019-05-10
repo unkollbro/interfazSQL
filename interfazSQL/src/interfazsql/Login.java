@@ -19,7 +19,6 @@ ConfigSQL conexion;
     public Login() {
         initComponents();
         conexion = new ConfigSQL();
-        conexion.realizarConsulta("Select * FROM usuarios");
     }
 
     /**
@@ -127,6 +126,8 @@ ConfigSQL conexion;
     }//GEN-LAST:event_jPasswordField_pwdActionPerformed
 
     private void btn_accederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_accederMouseClicked
+        conexion.realizarConsulta("SELECT EXISTS(SELECT * FROM usuarios WHERE username='"+jTextField_usuario.getText()+"' AND PASSWORD ='pw_2')");
+        System.out.println(jTextField_usuario.getText());
         
     }//GEN-LAST:event_btn_accederMouseClicked
 
